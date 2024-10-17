@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShoeSphere</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="fixed-header">
+        <div class="container">
+            <div class="logo">ShoeSphere</div>
+            <nav>
+                <a href="#home" class="nav-item">Home</a>
+                <a href="#add" class="nav-item">Add</a>
+                <a href="#my-shoes" class="nav-item">My Shoes</a>
+                <a href="#profile" class="nav-item">Profile</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container main-content">
+        <main>
+            <section id="home" class="hero">
+                <h1>Welcome to ShoeSphere</h1>
+                <p>Share and borrow high-end shoes for any occasion</p>
+                <button id="getStarted">Get Started</button>
+            </section>
+
+            <section class="search">
+                <input type="text" id="searchBar" placeholder="Search for shoes...">
+            </section>
+
+            <section id="add" class="add-shoe">
+                <h2>Add a New Shoe</h2>
+                <form id="addShoeForm">
+                    <input type="text" name="brand" placeholder="Brand" required>
+                    <input type="text" name="model" placeholder="Model" required>
+                    <input type="number" name="size" placeholder="Size" required>
+                    <input type="text" name="style" placeholder="Style" required>
+                    <input type="text" name="condition" placeholder="Condition" required>
+                    <input type="url" name="imageUrl" placeholder="Image URL" required>
+                    <button type="submit">Add Shoe</button>
+                </form>
+            </section>
+
+            <section id="my-shoes" class="featured">
+                <h2>Featured Shoes</h2>
+                <div class="shoe-grid">
+                    <!-- Shoes will be dynamically added here -->
+                </div>
+            </section>
+
+            <section id="profile" class="profile">
+                <h2>Seller Profile</h2>
+                <div class="profile-content">
+                    <div class="profile-photo">
+                        <img src="1 copy.png" alt="David Bakka" id="profilePhoto">
+                    </div>
+                    <div class="profile-info">
+                        <h3>David Bakka</h3>
+                        <p id="profileBio">Fashion maverick and shoe enthusiast, David Bakka brings a whirlwind of creativity to every step. With an eye for the extraordinary and a passion for pushing boundaries, David's collection is a testament to his belief that shoes are not just accessories, but works of art meant to inspire and provoke. From neon-soled oxfords to hand-painted high-tops, each pair in his collection tells a story of innovation and daring style.</p>
+                    </div>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <span class="stat-value" id="shoeCount">0</span>
+                        <span class="stat-label">Shoes Listed</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="totalBorrows">0</span>
+                        <span class="stat-label">Total Borrows</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div>© 2024 ShoeSphere. All rights reserved.</div>
+            <div>
+                <a href="#">Terms of Service</a> |
+                <a href="#">Privacy Policy</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
