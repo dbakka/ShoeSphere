@@ -40,48 +40,56 @@ const ShoeSphere = {
         } else {
             console.error('Search bar not found');
         }
+
+        const updateShoeForm = document.getElementById('updateShoeForm');
+        if (updateShoeForm) {
+            console.log('Update Shoe form found, adding event listener');
+            updateShoeForm.addEventListener('submit', this.updateShoe.bind(this));
+        } else {
+            console.error('Update Shoe form not found');
+        }
+
+        const closeModalBtn = document.querySelector('.close');
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', () => {
+                document.getElementById('updateShoeModal').style.display = 'none';
+            });
+        }
     },
 
-    // In your app.js file, update the handleNavigation function:
+    handleNavigation: function() {
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('main > section');
 
-handleNavigation: function() {
-    const navItems = document.querySelectorAll('.nav-item');
-    const sections = document.querySelectorAll('main > section');
-
-    navItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            
-            if (targetId === 'home') {
-                // Show all sections for the home view
-                sections.forEach(section => {
-                    section.style.display = 'block';
-                });
-            } else {
-                // Hide all sections and show only the target section
-                sections.forEach(section => {
-                    section.style.display = section.id === targetId ? 'block' : 'none';
-                });
-            }
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                
+                if (targetId === 'home') {
+                    sections.forEach(section => {
+                        section.style.display = 'block';
+                    });
+                } else {
+                    sections.forEach(section => {
+                        section.style.display = section.id === targetId ? 'block' : 'none';
+                    });
+                }
+            });
         });
-    });
-},
+    },
 
-handleGetStarted: function() {
-    const getStartedBtn = document.getElementById('getStartedBtn');
-    const shoesSection = document.getElementById('my-shoes');
+    handleGetStarted: function() {
+        const getStartedBtn = document.getElementById('getStartedBtn');
+        const shoesSection = document.getElementById('my-shoes');
 
-    getStartedBtn.addEventListener('click', function() {
-        // Ensure all sections are visible
-        document.querySelectorAll('main > section').forEach(section => {
-            section.style.display = 'block';
+        getStartedBtn.addEventListener('click', function() {
+            document.querySelectorAll('main > section').forEach(section => {
+                section.style.display = 'block';
+            });
+            shoesSection.scrollIntoView({ behavior: 'smooth' });
         });
-
-        // Scroll to the shoes section
-        shoesSection.scrollIntoView({ behavior: 'smooth' });
-    });
-},
+    },
 
     fetchShoes: function() {
         fetch('http://localhost:3000/shoes')
@@ -127,6 +135,8 @@ handleGetStarted: function() {
                 <p>Condition: ${shoe.condition}</p>
                 <p>Availability: ${shoe.availability ? 'Available' : 'Not Available'}</p>
                 <button onclick="ShoeSphere.viewShoeDetails(${shoe.id})">View Details</button>
+                <button onclick="ShoeSphere.openUpdateShoeModal(${shoe.id})">Update</button>
+                <button onclick="ShoeSphere.deleteShoe(${shoe.id})">Delete</button>
             `;
             shoeGrid.appendChild(shoeElement);
         });
@@ -149,7 +159,7 @@ handleGetStarted: function() {
             Date.now(), // Temporary ID
             form.brand.value,
             form.model.value,
-            form.size.value,
+            parseInt(form.size.value),
             form.style.value,
             form.condition.value,
             true,
@@ -206,6 +216,87 @@ handleGetStarted: function() {
         }
     },
 
+    openUpdateShoeModal: function(id) {
+        const shoe = this.shoes.find(s => s.id === id);
+        if (shoe) {
+            document.getElementById('updateShoeId').value = shoe.id;
+            document.getElementById('updateBrand').value = shoe.brand;
+            document.getElementById('updateModel').value = shoe.model;
+            document.getElementById('updateSize').value = shoe.size;
+            document.getElementById('updateStyle').value = shoe.style;
+            document.getElementById('updateCondition').value = shoe.condition;
+            document.getElementById('updateImageUrl').value = shoe.imageUrl;
+            document.getElementById('updateShoeModal').style.display = 'block';
+        }
+    },
+
+    updateShoe: function(event) {
+        event.preventDefault();
+        const id = document.getElementById('updateShoeId').value;
+        const updatedShoe = {
+            id: parseInt(id),
+            brand: document.getElementById('updateBrand').value,
+            model: document.getElementById('updateModel').value,
+            size: parseInt(document.getElementById('updateSize').value),
+            style: document.getElementById('updateStyle').value,
+            condition: document.getElementById('updateCondition').value,
+            imageUrl: document.getElementById('updateImageUrl').value,
+            availability: true // You might want to add an availability toggle in the form
+        };
+
+        fetch(`http://localhost:3000/shoes/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedShoe),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Updated shoe data:', data);
+            const index = this.shoes.findIndex(s => s.id === parseInt(id));
+            if (index !== -1) {
+                this.shoes[index] = new Shoe(
+                    data.id,
+                    data.brand,
+                    data.model,
+                    data.size,
+                    data.style,
+                    data.condition,
+                    data.availability,
+                    data.imageUrl
+                );
+                this.renderShoes();
+                this.updateProfileStats();
+                document.getElementById('updateShoeModal').style.display = 'none';
+            }
+        })
+        .catch(error => console.error('Error updating shoe:', error));
+    },
+
+    deleteShoe: function(id) {
+        if (confirm('Are you sure you want to delete this shoe?')) {
+            fetch(`http://localhost:3000/shoes/${id}`, {
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (response.ok) {
+                    this.shoes = this.shoes.filter(s => s.id !== id);
+                    this.renderShoes();
+                    this.updateProfileStats();
+                } else {
+                    throw new Error('Failed to delete shoe');
+                }
+            })
+            .catch(error => console.error('Error deleting shoe:', error));
+        }
+    },
+
     searchShoes: function(event) {
         const searchTerm = event.target.value.toLowerCase();
         const filteredShoes = this.shoes.filter(shoe => 
@@ -231,6 +322,8 @@ handleGetStarted: function() {
                 <p>Condition: ${shoe.condition}</p>
                 <p>Availability: ${shoe.availability ? 'Available' : 'Not Available'}</p>
                 <button onclick="ShoeSphere.viewShoeDetails(${shoe.id})">View Details</button>
+                <button onclick="ShoeSphere.openUpdateShoeModal(${shoe.id})">Update</button>
+                <button onclick="ShoeSphere.deleteShoe(${shoe.id})">Delete</button>
             `;
             shoeGrid.appendChild(shoeElement);
         });

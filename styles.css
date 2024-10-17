@@ -1,8 +1,10 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background: #f0f0f0;
+    line-height: 1.6;
 }
 
 .container {
@@ -11,6 +13,7 @@ body {
     padding: 0 20px;
 }
 
+/* Header Styles */
 .fixed-header {
     position: fixed;
     top: 0;
@@ -31,6 +34,7 @@ header .container {
 .logo {
     font-size: 24px;
     font-weight: bold;
+    color: #007bff;
 }
 
 nav {
@@ -44,15 +48,26 @@ nav {
     padding: 5px 10px;
     border: 1px solid #333;
     border-radius: 5px;
+    transition: all 0.3s ease;
 }
 
+.nav-item:hover {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+/* Main Content Styles */
 .main-content {
-    padding-top: 80px; /* Adjust this value based on your header height */
+    padding-top: 80px;
 }
 
+/* Hero Section Styles */
 .hero {
     text-align: center;
     padding: 50px 0;
+    background: linear-gradient(to right, #007bff, #00bfff);
+    color: white;
 }
 
 .hero h1 {
@@ -73,8 +88,14 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Search Bar Styles */
 .search {
     margin: 30px 0;
 }
@@ -87,8 +108,13 @@ button {
     border-radius: 5px;
 }
 
+/* Add Shoe Form Styles */
 .add-shoe {
     margin: 30px 0;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 #addShoeForm {
@@ -103,6 +129,7 @@ button {
     border-radius: 5px;
 }
 
+/* Shoe Grid Styles */
 .shoe-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -114,6 +141,12 @@ button {
     border-radius: 5px;
     padding: 20px;
     background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.shoe-item:hover {
+    transform: translateY(-5px);
 }
 
 .shoe-item img {
@@ -124,14 +157,138 @@ button {
     margin-bottom: 10px;
 }
 
-footer {
-    margin-top: 50px;
-    padding-top: 20px;
-    border-top: 2px solid #333;
-    display: flex;
-    justify-content: space-between;
+.shoe-item h3 {
+    margin-top: 0;
+    color: #007bff;
 }
 
+.shoe-item p {
+    margin: 5px 0;
+}
+
+.shoe-item button {
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+/* Profile Section Styles */
+.profile {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-top: 30px;
+}
+
+.profile-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.profile-photo img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info h3 {
+    margin-top: 0;
+    color: #007bff;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Footer Styles */
+footer {
+    margin-top: 50px;
+    padding: 20px 0;
+    background-color: #333;
+    color: white;
+    text-align: center;
+}
+
+footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#updateShoeForm {
+    display: grid;
+    gap: 10px;
+}
+
+#updateShoeForm input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
     header .container {
         flex-direction: column;
@@ -140,74 +297,20 @@ footer {
 
     nav {
         margin-top: 20px;
+        flex-wrap: wrap;
     }
 
-    .shoe-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-}
-
-.profile {
-    background-color: #f9f9f9;
-    padding: 2rem;
-    border-radius: 8px;
-    margin-top: 2rem;
-}
-
-.profile-content {
-    display: flex;
-    align-items: flex-start;
-    gap: 2rem;
-}
-
-.profile-photo img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #007bff;
-}
-
-.profile-info h3 {
-    margin-top: 0;
-    color: #333;
-}
-
-.profile-info p {
-    color: #666;
-    line-height: 1.6;
-}
-
-.profile-stats {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 2rem;
-}
-
-.stat {
-    text-align: center;
-}
-
-.stat-value {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #007bff;
-    display: block;
-}
-
-.stat-label {
-    font-size: 0.9rem;
-    color: #666;
-}
-
-@media (max-width: 768px) {
     .profile-content {
         flex-direction: column;
         align-items: center;
     }
 
-    .profile-photo img {
-        width: 150px;
-        height: 150px;
+    .shoe-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
     }
 }

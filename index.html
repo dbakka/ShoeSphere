@@ -84,6 +84,24 @@
         </footer>
     </div>
 
+    <!-- Update Shoe Modal -->
+    <div id="updateShoeModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Update Shoe</h2>
+            <form id="updateShoeForm">
+                <input type="hidden" id="updateShoeId">
+                <input type="text" id="updateBrand" placeholder="Brand" required>
+                <input type="text" id="updateModel" placeholder="Model" required>
+                <input type="number" id="updateSize" placeholder="Size" required>
+                <input type="text" id="updateStyle" placeholder="Style" required>
+                <input type="text" id="updateCondition" placeholder="Condition" required>
+                <input type="url" id="updateImageUrl" placeholder="Image URL" required>
+                <button type="submit">Update Shoe</button>
+            </form>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
