@@ -129,7 +129,6 @@ const ShoeSphere = {
         if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
             return imagePath; // Return full URLs as-is
         }
-        // For relative paths, prepend the base URL of your application
         return window.location.origin + '/' + imagePath.replace(/^\//, '');
     },
 
