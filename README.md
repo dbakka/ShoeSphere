@@ -21,7 +21,7 @@ ShoeSphere is a web application that facilitates shoe sharing, allowing users to
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/ShoeSphere.git
+   git clone [https://github.com/dbakka/ShoeSphere.git]
    ```
 
 2. Navigate to the project directory:
