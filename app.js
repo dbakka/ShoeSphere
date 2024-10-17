@@ -121,6 +121,18 @@ const ShoeSphere = {
             .catch(error => console.error('Error fetching shoes:', error));
     },
 
+    getImagePath: function(imagePath) {
+        if (!imagePath) {
+            return 'path/to/default-placeholder.jpg'; // Replace with an actual placeholder image path
+        }
+        // Check if the imagePath is already a valid URL
+        if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+            return imagePath; // Return full URLs as-is
+        }
+        // For relative paths, prepend the base URL of your application
+        return window.location.origin + '/' + imagePath.replace(/^\//, '');
+    },
+
     renderShoes: function() {
         const shoeGrid = document.querySelector('.shoe-grid');
         shoeGrid.innerHTML = '';
@@ -128,7 +140,9 @@ const ShoeSphere = {
             const shoeElement = document.createElement('div');
             shoeElement.className = 'shoe-item';
             shoeElement.innerHTML = `
-                <img src="${this.getImagePath(shoe.imageUrl)}" alt="${shoe.brand} ${shoe.model}">
+                <img src="${this.getImagePath(shoe.imageUrl)}" 
+                     alt="${shoe.brand} ${shoe.model}" 
+                     onerror="this.onerror=null; this.src='path/to/default-placeholder.jpg';">
                 <h3>${shoe.brand} ${shoe.model}</h3>
                 <p>Size: ${shoe.size}</p>
                 <p>Style: ${shoe.style}</p>
@@ -163,7 +177,7 @@ const ShoeSphere = {
             form.style.value,
             form.condition.value,
             true,
-            form.imageUrl.value
+            form.imageUrl.value // Use the exact URL provided by the user
         );
     
         console.log('New shoe object:', newShoe);
@@ -315,7 +329,9 @@ const ShoeSphere = {
             const shoeElement = document.createElement('div');
             shoeElement.className = 'shoe-item';
             shoeElement.innerHTML = `
-                <img src="${this.getImagePath(shoe.imageUrl)}" alt="${shoe.brand} ${shoe.model}">
+                <img src="${this.getImagePath(shoe.imageUrl)}" 
+                     alt="${shoe.brand} ${shoe.model}" 
+                     onerror="this.onerror=null; this.src='path/to/default-placeholder.jpg';">
                 <h3>${shoe.brand} ${shoe.model}</h3>
                 <p>Size: ${shoe.size}</p>
                 <p>Style: ${shoe.style}</p>
@@ -327,13 +343,6 @@ const ShoeSphere = {
             `;
             shoeGrid.appendChild(shoeElement);
         });
-    },
-
-    getImagePath: function(imagePath) {
-        if (imagePath.startsWith('http') || imagePath.startsWith('/')) {
-            return imagePath;
-        }
-        return window.location.origin + '/' + imagePath;
     },
 
     updateProfileStats: function() {
