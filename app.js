@@ -19,6 +19,7 @@ const ShoeSphere = {
         this.fetchShoes();
         this.bindEvents();
         this.handleNavigation();
+        this.handleGetStarted();
         this.updateProfileStats();
     },
 
@@ -64,6 +65,21 @@ handleNavigation: function() {
                 });
             }
         });
+    });
+},
+
+handleGetStarted: function() {
+    const getStartedBtn = document.getElementById('getStartedBtn');
+    const shoesSection = document.getElementById('my-shoes');
+
+    getStartedBtn.addEventListener('click', function() {
+        // Ensure all sections are visible
+        document.querySelectorAll('main > section').forEach(section => {
+            section.style.display = 'block';
+        });
+
+        // Scroll to the shoes section
+        shoesSection.scrollIntoView({ behavior: 'smooth' });
     });
 },
 
