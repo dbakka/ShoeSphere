@@ -44,14 +44,23 @@ const ShoeSphere = {
     handleNavigation: function() {
         const navItems = document.querySelectorAll('.nav-item');
         const sections = document.querySelectorAll('main > section');
-
+    
         navItems.forEach(item => {
             item.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
-                sections.forEach(section => {
-                    section.style.display = section.id === targetId ? 'block' : 'none';
-                });
+                
+                if (targetId === 'home') {
+                    // Show all sections for the home page
+                    sections.forEach(section => {
+                        section.style.display = 'block';
+                    });
+                } else {
+                    // Hide all sections and show only the target section
+                    sections.forEach(section => {
+                        section.style.display = section.id === targetId ? 'block' : 'none';
+                    });
+                }
             });
         });
     },
