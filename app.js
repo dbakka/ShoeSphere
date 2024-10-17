@@ -23,8 +23,22 @@ const ShoeSphere = {
     },
 
     bindEvents: function() {
-        document.getElementById('addShoeForm').addEventListener('submit', this.addShoe.bind(this));
-        document.getElementById('searchBar').addEventListener('input', this.searchShoes.bind(this));
+        console.log('Binding events...');
+        const addShoeForm = document.getElementById('addShoeForm');
+        if (addShoeForm) {
+            console.log('Add Shoe form found, adding event listener');
+            addShoeForm.addEventListener('submit', this.addShoe.bind(this));
+        } else {
+            console.error('Add Shoe form not found');
+        }
+        
+        const searchBar = document.getElementById('searchBar');
+        if (searchBar) {
+            console.log('Search bar found, adding event listener');
+            searchBar.addEventListener('input', this.searchShoes.bind(this));
+        } else {
+            console.error('Search bar not found');
+        }
     },
 
     handleNavigation: function() {
@@ -92,8 +106,18 @@ const ShoeSphere = {
     },
 
     addShoe: function(event) {
+        console.log('Add Shoe function called');
         event.preventDefault();
         const form = event.target;
+        console.log('Form data:', {
+            brand: form.brand.value,
+            model: form.model.value,
+            size: form.size.value,
+            style: form.style.value,
+            condition: form.condition.value,
+            imageUrl: form.imageUrl.value
+        });
+    
         const newShoe = new Shoe(
             Date.now(), // Temporary ID
             form.brand.value,
@@ -104,7 +128,9 @@ const ShoeSphere = {
             true,
             form.imageUrl.value
         );
-
+    
+        console.log('New shoe object:', newShoe);
+    
         fetch('http://localhost:3000/shoes', {
             method: 'POST',
             headers: {
@@ -112,8 +138,15 @@ const ShoeSphere = {
             },
             body: JSON.stringify(newShoe),
         })
-        .then(response => response.json())
+        .then(response => {
+            console.log('Response status:', response.status);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
+            console.log('Server response:', data);
             this.shoes.push(new Shoe(
                 data.id,
                 data.brand,
@@ -124,6 +157,7 @@ const ShoeSphere = {
                 data.availability,
                 data.imageUrl
             ));
+            console.log('Updated shoes array:', this.shoes);
             this.renderShoes();
             this.updateProfileStats();
             form.reset();
