@@ -19,3 +19,4 @@ Thumbs.db
 
 # JSON Server database
 db.json
+.vercel
