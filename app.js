@@ -41,29 +41,31 @@ const ShoeSphere = {
         }
     },
 
-    handleNavigation: function() {
-        const navItems = document.querySelectorAll('.nav-item');
-        const sections = document.querySelectorAll('main > section');
-    
-        navItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                
-                if (targetId === 'home') {
-                    // Show all sections for the home page
-                    sections.forEach(section => {
-                        section.style.display = 'block';
-                    });
-                } else {
-                    // Hide all sections and show only the target section
-                    sections.forEach(section => {
-                        section.style.display = section.id === targetId ? 'block' : 'none';
-                    });
-                }
-            });
+    // In your app.js file, update the handleNavigation function:
+
+handleNavigation: function() {
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('main > section');
+
+    navItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            
+            if (targetId === 'home') {
+                // Show all sections for the home view
+                sections.forEach(section => {
+                    section.style.display = 'block';
+                });
+            } else {
+                // Hide all sections and show only the target section
+                sections.forEach(section => {
+                    section.style.display = section.id === targetId ? 'block' : 'none';
+                });
+            }
         });
-    },
+    });
+},
 
     fetchShoes: function() {
         fetch('http://localhost:3000/shoes')
