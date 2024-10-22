@@ -1,0 +1,45 @@
+{
+  "shoes": [
+    {
+      "id": "1",
+      "brand": "Nike",
+      "model": "Air Max 90",
+      "size": 10,
+      "style": "Sneaker",
+      "condition": "Excellent",
+      "availability": true,
+      "imageUrl": "Media/Photos/air-max-90-shoes-4PG9Dt copy.png"
+    },
+    {
+      "id": "2",
+      "brand": "Adidas",
+      "model": "Ultraboost",
+      "size": 9,
+      "style": "Running",
+      "condition": "Good",
+      "availability": true,
+      "imageUrl": "Media/Photos/adidas-ultraboost-light-w-8_3c490bf05445499a900dce9a98ec4b1b_master copy.webp"
+    },
+    {
+      "id": "3",
+      "brand": "Gucci",
+      "model": "Princetown",
+      "size": 8,
+      "style": "Loafer",
+      "condition": "Like New",
+      "availability": false,
+      "imageUrl": "Media/Photos/Gucci Princetown copy.avif"
+    },
+    {
+      "id": 1729164619552,
+      "brand": "Balenciaga",
+      "model": "Bootie",
+      "size": 43,
+      "style": "Hiker",
+      "condition": "Available",
+      "availability": true,
+      "imageUrl": "Media/Photos/25271412_55551671_480 copy.webp",
+      "borrowHistory": []
+    }
+  ]
+}
