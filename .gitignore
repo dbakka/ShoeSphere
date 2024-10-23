@@ -17,6 +17,3 @@ Thumbs.db
 *.swp
 *.swo
 
-# JSON Server database
-db.json
-.vercel
